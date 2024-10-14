@@ -437,8 +437,11 @@ It should only modify the values of Spacemacs settings."
    ;;   :size-limit-kb 1000)
    ;; When used in a plist, `visual' takes precedence over `relative'.
    ;; (default nil)
-   dotspacemacs-line-numbers nil
-
+   dotspacemacs-line-numbers '(:relative t
+                                         :disabled-for-modes dired-mode
+                                         doc-view-mode
+                                         pdf-view-mode
+                                         :size-limit-kb 1000)
    ;; Code folding method. Possible values are `evil', `origami' and `vimish'.
    ;; (default 'evil)
    dotspacemacs-folding-method 'evil
@@ -578,6 +581,7 @@ This function is called immediately after `dotspacemacs/init', before layer
 configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
+  (load-file "~/.spacemacs.d/tools.el")
   )
 
 
@@ -598,6 +602,9 @@ before packages are loaded."
   (use-package ags-mode)
   (spacemacs/set-leader-keys-for-major-mode 'ags-mode "n" 'ags-jump-to-next-table)
   (spacemacs/set-leader-keys-for-major-mode 'ags-mode "p" 'ags-jump-to-previous-table)
+
+  (global-display-line-numbers-mode t)
+
   )
 
 
